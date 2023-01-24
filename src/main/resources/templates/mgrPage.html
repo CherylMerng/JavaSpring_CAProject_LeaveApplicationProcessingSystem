@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container my-2 center">
+        <h6>My Staff ID </td>
+            <td><span sec:authentication="name">Username</span>
+        </h6>            <h6>My Full Name </td>
+            <td><span th:text=${fullName}></span>
+        </h6>
+        <h3> Manager Page </h3>
+        <br>
+        <div>
+            <a th:href="@{/mgr/mgrviewleaveforapproval}" class="btn btn-primary btn-sm mb-3">View Leave Application for
+                Approval</a>
+        </div>
+        <div>
+            <a th:href="@{/mgr/mgrviewleave}" class="btn btn-primary btn-sm mb-3">View My Subordinate Leave History</a>
+        </div>
+        <br>
+        <a th:href="@{/welcome}">RETURN TO HOME PAGE</a>
+        <br>
+        <a th:href="@{/logout}">LOGOUT</a>
+</body>
+<br>
+<br>
+Now is: <b th:text="${execInfo.now.time}"></b></small> <br /> <small>(c) Leave Management System, NUS ISS</small>
+</div>
+
+</html>

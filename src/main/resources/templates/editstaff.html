@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Staff Records Page</title>
+    <link rel="stylesheet" th:href="@{/css/editstaff.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container my-2 center">
+        <h6>My Staff ID </td>
+            <td><span sec:authentication="name">Username</span>
+        </h6>            <h6>My Full Name </td>
+            <td><span th:text=${fullName}></span>
+        </h6>
+        <h3 th:if="${action} == 'edit'"> Edit Staff </h3>
+        <h6 th:if="${action} == 'edit'">All fields are editable and mandatory except for the Staff ID*, Reporting Staff ID* and Job Grade*<br>
+            Please note if you would like to modify staff's reporting staff ID, you may do so at the Manage Staff Approval Hierarchy Page. 
+        <br>If you would like to view or modify staff account access (roles, password),you may also do so at Manage Staff Access Rights Page </h6>
+        <h3 th:if="${action} == 'add'"> Add Staff </h3>
+        <h6 th:if="${action} == 'add'">All fields mandatory. If staff has no reporting staff ID, please input None under the reporting Staff ID field.
+        <br>Pls also input the password for the activation of new staff account. Once this staff is successfully added,
+        <br>the staff will be given access rights based on the allocated Job Grade. </h6>
+    <table border="1">
+        <form th:if="${action} == 'edit'" th:object="${staff}" th:action="@{/adm/submitupdatestaff}" method="POST">
+            <tr><td><label for="username">Staff ID*</label></td>
+                <td><input type="text" th:field="*{username}" readonly/> </td> </tr>
+            <tr>
+        <td><label for="fullName">Full Name</label></td>
+        <td><input type="text" th:field="*{fullName}"> <span class="error-message" th:if="${#fields.hasErrors('fullName')}"
+            th:errors="*{fullName}"></td> </tr>
+        <tr><td><label for="designation">Designation</label></td>
+            <td><input type="text" th:field="*{designation}" /> 
+                <span class="error-message" th:if="${#fields.hasErrors('designation')}"
+                    th:errors="*{designation}"></td> </tr>
+                    <tr><td><label for="jobGrade">Job Grade*</label></td>
+                        <td><input type="text" th:field="*{jobGrade}" readonly /> </td> </tr>
+               <tr><td><label for="mobilePhone">Mobile Phone Number</label></td>
+                <td><input type="text" th:field="*{mobilePhone}" /> 
+                    <span class="error-message" th:if="${#fields.hasErrors('mobilePhone')}"
+                    th:errors="*{mobilePhone}"></td> </tr>
+                   <tr><td><label for="email">Email</label></td>
+                    <td><input type="text" th:field="*{email}" /> 
+                        <span class="error-message" th:if="${#fields.hasErrors('email')}"
+                        th:errors="*{email}"></td> </tr>
+                       <tr><td><label for="reportingStaffID">Reporting Staff ID*</label></td>
+                        <td><input type="text" th:field="*{reportingStaffID}" readonly/> 
+                           </td></tr>
+<tr>  <tr><td><label for="password"></label></td>
+    <td><input type="hidden" th:field="*{password}"/> </td> </tr>
+<tr>
+    <td colspan="2"><br>
+        <input type="submit" value="Update Staff" /></td></tr>
+    </form>
+    <form th:if="${action} == 'add'" th:object="${staff}" th:action="@{/adm/submitaddstaff}" method="POST">
+        <tr><td><label for="username">Staff ID</label></td>
+            <td><input type="text" th:field="*{username}"/> 
+                <span class="error-message" th:if="${#fields.hasErrors('username')}"
+                th:errors="*{username}"></td> </tr>
+        <tr>
+    <td><label for="fullName">Full Name</label></td>
+    <td><input type="text" th:field="*{fullName}"> <span class="error-message" th:if="${#fields.hasErrors('fullName')}"
+        th:errors="*{fullName}"></td> </tr>
+    <tr><td><label for="designation">Designation</label></td>
+        <td><input type="text" th:field="*{designation}" /> 
+            <span class="error-message" th:if="${#fields.hasErrors('designation')}"
+                th:errors="*{designation}"></td> </tr>
+                <tr>
+                    <td><label for="jobGrade">Job Grade</label></td>
+                    <td>
+                        <select th:field="*{jobGrade}">
+                            <option value="">Select</option>
+                            <option value="ISS03">Administrator</option>
+                            <option value="ISS02">Manager</option>
+                            <option value="ISS01">Employee</option>
+                        </select> <span class="error-message" th:if="${#fields.hasErrors('jobGrade')}"
+                            th:errors="*{jobGrade}">
+                    </td>
+                </tr>
+                <tr><td><label for="password">Password for Leave Management Portal</label></td>
+                    <td><input type="text" th:field="*{password}" /> 
+                        <span class="error-message" th:if="${#fields.hasErrors('password')}"
+                th:errors="*{password}"></td> </tr>
+                <tr>
+           <tr><td><label for="mobilePhone">Mobile Phone Number</label></td>
+            <td><input type="text" th:field="*{mobilePhone}" /> 
+                <span class="error-message" th:if="${#fields.hasErrors('mobilePhone')}"
+                th:errors="*{mobilePhone}"></td> </tr>
+               <tr><td><label for="email">Email</label></td>
+                <td><input type="text" th:field="*{email}" /> 
+                    <span class="error-message" th:if="${#fields.hasErrors('email')}"
+                    th:errors="*{email}"></td> </tr>
+                   <tr><td><label for="reportingStaffID">Reporting Staff ID</label></td>
+                    <td><input type="text" th:field="*{reportingStaffID}"/> <span class="error-message" th:if="${#fields.hasErrors('reportingStaffID')}"
+                        th:errors="*{reportingStaffID}"></td> </tr>
+<tr><td colspan="2"><br>
+    <input type="submit" value="Add Staff" /></td></tr>
+</form>
+    </table>
+    <br>
+    <p th:unless="${error == ''}" class="error-message" th:text="${error}"></p>
+    <br>
+<a th:href="@{/adm/managestaff}">RETURN TO MANAGE STAFF RECORDS PAGE</a>
+<br>
+<a th:href="@{/admin}">RETURN TO ADMIN PAGE</a>
+<br>
+<a th:href="@{/welcome}">RETURN TO HOME PAGE</a>
+<br>
+<a th:href="@{/logout}">LOGOUT</a>
+<br>
+<br>
+Now is: <b th:text="${execInfo.now.time}"></b></small> <br /> <small>(c) Leave Management System, NUS ISS</small>
+    </div>
+</body>
+</html>

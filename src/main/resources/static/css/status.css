@@ -1,0 +1,24 @@
+.REJECTED{
+    color: red;
+    font-weight: bold;
+}
+
+.PENDING{
+    color: orange;
+    font-weight: bold;
+}
+
+.APPROVED{
+    color: green;
+    font-weight: bold;
+}
+
+.CANCELLED{
+    color: blue;
+    font-weight: bold;
+}
+
+.DELETED{
+    color: blueviolet;
+    font-weight: bold;
+}

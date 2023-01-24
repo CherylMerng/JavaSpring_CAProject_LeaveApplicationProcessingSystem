@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Application</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container my-2 center">
+        <div th:if="${leaveApplication.status == null}">
+            <h3>Leave Application Form</h3>
+        </div>
+        <div th:unless="${leaveApplication.status== null}">
+            <h3>Update Leave Application Form</h3>
+        </div>
+        <table>
+            <tr>
+                <td>My Staff ID</td>
+                <td><span sec:authentication="name">Username</span></td>
+            </tr>
+            <div th:if="${leaveApplication.status== null}">
+                <form th:action="@{/emp/leavesubmission}" th:object="${leaveApplication}" method="POST">
+                    <tr>
+                        <td>
+                            <label for="startDate">Start Date (yyyy-mm-dd)</label>
+                        </td>
+                        <td><input type="text" class="form-control" th:field="*{startDate}" readonly> </td>
+                    </tr>
+                    <tr>
+                        <td> <label for="endDate">End Date (yyyy-mm-dd)</label></td>
+                        <td><input type="text" class="form-control" th:field="*{endDate}" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="leaveType">Leave Type</label>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" th:field="*{leaveType}" readonly>
+                        </td>
+                    <tr>
+                        <td>Number of days of intended leave </td>
+                        <td><input type="text" class="form-control" th:field="*{numberOfDays}" readonly> </td>
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td>Reason for taking leave </td>
+                        <td><input type="text" class="form-control" th:field="*{reason}" readonly> </td>
+                    </tr>
+                    <tr>
+                        <td>Contact Number (if going overseas) </td>
+                        <td><input type="text" class="form-control" th:field="*{contactNumber}" readonly> </td>
+                    </tr>
+                    <tr>
+                        <td>Work Dissemination (if any) </td>
+                        <td><input type="text" class="form-control" th:field="*{dissemination}" readonly></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" th:if="${errorMessage == ''}">
+                            <div><input type="submit" value="Submit New General Leave Application"
+                                    class="btn btn-primary btn-sm mb-3"></div>
+                        </td>
+                    </tr>
+                </form>
+            </div>
+            <div th:unless="${leaveApplication.status== null}">
+                <form th:action="@{/emp/updateleavesubmission(id=${leaveApplication.id})}"
+                    th:object="${leaveApplication}" method="POST">
+                    <tr>
+                        <td>Leave Application ID</td>
+                        <td input type="text" th:text="*{id}" readonly class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="startDate">Start Date (yyyy-mm-dd)</label>
+                        </td>
+                        <td><input type="text" class="form-control" th:field="*{startDate}" readonly> </td>
+                    </tr>
+                    <tr>
+                        <td> <label for="endDate">End Date (yyyy-mm-dd)</label></td>
+                        <td><input type="text" class="form-control" th:field="*{endDate}" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="leaveType">Leave Type</label>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" th:field="*{leaveType}" readonly>
+                        </td>
+                    <tr>
+                        <td>Number of days of intended leave </td>
+                        <td><input type="text" class="form-control" th:field="*{numberOfDays}" readonly> </td>
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td>Reason for taking leave </td>
+                        <td><input type="text" class="form-control" th:field="*{reason}" readonly> </td>
+                    </tr>
+                    <tr>
+                        <td>Contact Number (if going overseas) </td>
+                        <td><input type="text" class="form-control" th:field="*{contactNumber}" readonly> </td>
+                    </tr>
+                    <tr>
+                        <td>Work Dissemination (if any) </td>
+                        <td><input type="text" class="form-control" th:field="*{dissemination}" readonly></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" th:if="${errorMessage == ''}">
+                            <div><input type="submit" value="Update existing General Leave Application"
+                                    class="btn btn-primary btn-sm mb-3"></div>
+                        </td>
+                    </tr>
+                </form>
+            </div>
+        </table>
+        <div class="alert alert-warning" th:unless="${errorMessage == ''}" th:text="${errorMessage}"></div>
+        <div th:unless="${leaveApplication.status == null}">
+            <a th:href="@{/emp/viewleave/details(id=${leaveApplication.id})}">RETURN TO LEAVE APPLICATION DETAILS</a>
+        </div>
+        <div th:if="${leaveApplication.status == null}">
+            <a th:href="@{/emp/leaveapplication}">RETURN TO PREVIOUS PAGE</a>
+        </div>
+        <a th:href="@{/emp}">RETURN TO PERSONAL LEAVE OVERVIEW PAGE</a>
+        <br>
+        <a th:href="@{/welcome}">RETURN TO HOME PAGE</a>
+        <br>
+        <a th:href="@{/logout}">LOGOUT</a>
+</body>
+<br>
+<br>
+Now is: <b th:text="${execInfo.now.time}"></b></small> <br /> <small>(c) Leave Management System, NUS ISS</small>
+</div>
+
+</html>

@@ -1,0 +1,15 @@
+.error-message{
+    /* text-align: right; */
+    font-style: italic;
+    width: 100%;
+    float: left;
+    /* border: solid 1px green; */
+    color:darkred;
+    font-size: 0.800rem;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    padding: 2px;
+    margin: 3px;
+}

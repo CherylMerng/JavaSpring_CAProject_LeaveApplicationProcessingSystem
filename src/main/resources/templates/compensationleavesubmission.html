@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Submission</title>
+
+    <link th:href="@{/css/status.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container my-2 center">
+        <h3 th:if="${update == 'yes'}">Update to Leave Application Submitted</h3>
+        <h3 th:if="${update =='no'}">
+            Leave Application Submitted</h3>
+        <h3 th:if="${compensationLeaveApplication.status.name() == 'DELETED'}">Leave Application Deleted</h3>
+        <h3 th:if="${compensationLeaveApplication.status.name() == 'CANCELLED'}">Leave Application Cancelled</h3>
+        <h6>Please do not refresh this page as it will result in the submission of duplicate applications <br> and
+            deduction of more than required leave days</h6>
+        <table border="1" th:object="${compensationLeaveApplication}">
+            <tr>
+                <td>My Staff ID</td>
+                <td><span sec:authentication="name">Username</span></td>
+            </tr>
+            <tr>
+                <td>Staff Full Name</td>
+                <td th:object="${compensationLeaveApplication.user}">
+                    <p th:text="*{fullName}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td>Leave Application ID</td>
+                <td th:text="*{id}"></td>
+            </tr>
+            <tr>
+                <td>Date (yyyy-mm-dd))</td>
+                <td th:text="*{startDate}"> </td>
+            </tr>
+            <tr>
+                <td> Time of the day </td>
+                <td th:text="*{halfdayIndicator != null ? halfdayIndicator : '-'}"> </td>
+            </tr>
+            </tr>
+            <tr>
+                <td>Leave Type </td>
+                <td th:text="*{leaveType}"> </td>
+            </tr>
+            <tr>
+                <td>Number of days of intended leave </td>
+                <td th:text="*{numberOfDays}"> </td>
+            </tr>
+            </tr>
+            <tr>
+                <td>Reason </td>
+                <td th:text="*{reason}"> </td>
+            </tr>
+            <tr>
+                <td>Contact Number (if going overseas)</td>
+                <td th:text="*{contactNumber != null ? contactNumber : '-'}"> </td>
+            </tr>
+            <tr>
+                <td>Work Dissemination (if any)</td>
+                <td th:text="*{dissemination != null ? dissemination : '-'}"> </td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td th:text="*{status}" th:classappend = "*{status}"> </td>
+            </tr>
+            <tr>
+                <td>Date of Status</td>
+                <td th:text="*{dateOfStatus}"> </td>
+            </tr>
+            <tr>
+                <td>Date of Application</td>
+                <td th:text="*{dateOfApplication}"> </td>
+            </tr>
+
+        </table>
+        <br> <a th:href="@{/emp/viewleave}">RETURN TO PERSONAL LEAVE HISTORY PAGE</a>
+        <br>
+        <a th:href="@{/emp}">RETURN TO PERSONAL LEAVE OVERVIEW PAGE</a>
+        <br>
+        <a th:href="@{/welcome}">RETURN TO HOME PAGE</a>
+        <br>
+        <a th:href="@{/logout}">LOGOUT</a>
+        <br>
+        <br>
+        Now is: <b th:text="${execInfo.now.time}"></b></small> <br /> <small>(c) Leave Management System, NUS
+            ISS</small>
+    </div>
+</body>
+</div>
+
+</html>

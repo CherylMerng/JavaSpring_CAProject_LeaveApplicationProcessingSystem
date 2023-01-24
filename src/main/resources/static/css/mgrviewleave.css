@@ -1,0 +1,15 @@
+.pageinput {
+    width: 40px;
+}
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.linkbtn{
+    background: none;
+    border: none;
+    color: #6685ff;
+    cursor: pointer; 
+}

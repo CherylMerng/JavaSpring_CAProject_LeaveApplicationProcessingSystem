@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Management System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Welcome Page</title>
+</head>
+
+<body>
+    <div class="container my-2 center">
+        <table>
+            <tr>
+                <td>
+                    <h3> Welcome to Leave Management System</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    My Full Name: <span th:text="${fullName}"> </span>
+                    <br>
+                    My Staff ID: <span sec:authentication="name">Username</span>
+                    <br>
+                    My Designation: <span th:text="${designation}"></span>
+                    <br>
+                    My Access Rights:<span sec:authentication="principal.authorities">Roles</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <br>
+                    <h5>Available Services</h5>
+                    <div sec:authorize="hasAuthority('Admin')">
+                        <a th:href="@{/admin}" class="btn btn-primary btn-sm mb-3">Admin Services</a>
+                    </div>
+                    <div sec:authorize="hasAnyAuthority('Employee', 'Manager')">
+                        <a th:href="@{/emp}" class="btn btn-primary btn-sm mb-3">Employee Services</a>
+                    </div>
+                    <div sec:authorize="hasAuthority('Manager')">
+                        <a th:href="@{/mgr}" class="btn btn-primary btn-sm mb-3">Manager Services</a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><br><a th:href="@{/logout}">LOGOUT</a></td>
+            </tr>
+        </table>
+        <br>
+        Now is: <b th:text="${execInfo.now.time}"></b></small> <br /> <small>(c) Leave Management System, NUS
+            ISS</small>
+    </div>
+
+</html>

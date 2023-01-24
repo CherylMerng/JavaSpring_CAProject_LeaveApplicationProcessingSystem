@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Staff Records Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container my-2 center">
+        <h6>My Staff ID </td>
+            <td><span sec:authentication="name">Username</span>
+        </h6>            <h6>My Full Name </td>
+            <td><span th:text=${fullName}></span>
+        </h6>
+        <h3> Manage Staff Leave Balance</h3>
+        <h6>The Leave Balance of each staff are all listed here, sorted by their staff ID.
+            <br> You may update the leave balance of specific staff by clicking on update button.
+            <br> Pls note that Annual Leave and Medical Leave are in granularity of 1 day, wherease
+            <br> Compensation Leave is in granularity of 0.5 day. Overtime Hours are in whole numbers.
+        </h6>
+    <table border="1">
+        <tr>
+            <th>Staff ID</th>
+            <th>Full Name</th>
+            <th>Annual Leave (days)</th>
+            <th>Medical Leave (days)</th>
+            <th>Compensation Leave (days)</th>
+            <th>Overtime Hours (hours) </th>
+            <th>Edit</th>
+
+        </tr>
+        <tr th:each="leavebalance: ${staffleavebalance}">
+            <td th:utext="${leavebalance.user.username}"></td>
+            <td th:utext="${leavebalance.user.fullName}"></td>
+            <td th:utext="${leavebalance.annualLeave}"></td>
+            <td th:text="${leavebalance.medicalLeave}"></td>
+            <td th:text="${leavebalance.compensationLeave}"></td>
+            <td th:text="${leavebalance.overtimeHours}"></td>
+                    <td>
+                        <form th:object="${leavebalance}" th:action="@{/adm/updatestaffleave}" method="POST">
+                            <input type="hidden" name="user.username" th:value="${leavebalance.user.username}" />
+                            <input type="hidden" name="user.fullName" th:value="${leavebalance.user.fullName}" />
+                            <input type="hidden" name="annualLeave" th:value="${leavebalance.annualLeave}" />
+                            <input type="hidden" name="medicalLeave" th:value="${leavebalance.medicalLeave}" />
+                            <input type="hidden" name="compensationLeave" th:value="${leavebalance.compensationLeave}" />
+                            <input type="hidden" name="overtimeHours" th:value="${leavebalance.overtimeHours}" />
+                            <input type="submit" value="Update">
+                        </form>
+                    </td>
+                </tr> 
+        </tr>
+    </table>
+<br>
+<a th:href="@{/admin}">RETURN TO ADMIN PAGE</a>
+<br>
+<a th:href="@{/welcome}">RETURN TO HOME PAGE</a>
+<br>
+<a th:href="@{/logout}">LOGOUT</a>
+<br>
+<br>
+Now is: <b th:text="${execInfo.now.time}"></b></small> <br /> <small>(c) Leave Management System, NUS ISS</small>
+    </div>
+</body>
+</html>
